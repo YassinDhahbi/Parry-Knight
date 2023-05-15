@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365c7975134850d4d9791d50cea72c13, type: 3}
+  m_Name: InputSystem
+  m_EditorClassIdentifier: 
+  inputList:
+  - id: 0
+    inputAction:
+      m_Name: Input
+      m_Type: 2
+      m_ExpectedControlType: 
+      m_Id: 013291c0-e487-403b-a8e5-7858886c4b59
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: WASD
+        m_Id: 9a4ef7ca-2e30-4e47-908d-02d3220e91f1
+        m_Path: 2DVector
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 4
+      - m_Name: up
+        m_Id: 475fcbfd-f46a-433e-b96c-582c41d90d27
+        m_Path: <Keyboard>/w
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 8
+      - m_Name: down
+        m_Id: 9d9e4ae4-3efa-4fd0-9d77-b9a9e157e9c2
+        m_Path: <Keyboard>/s
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 8
+      - m_Name: left
+        m_Id: 12237b1f-3324-4aa6-927c-1845d3cf24fb
+        m_Path: <Keyboard>/a
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 8
+      - m_Name: right
+        m_Id: b2b13b77-abcc-4c59-be95-d0a3a0a95c56
+        m_Path: <Keyboard>/d
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 8
+      m_Flags: 0
+  - id: 1
+    inputAction:
+      m_Name: Input
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 013291c0-e487-403b-a8e5-7858886c4b59
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: ef5313a9-d9b1-4954-9356-71d0d1c4ba61
+        m_Path: <Keyboard>/tab
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 0
+      m_Flags: 0

@@ -15,6 +15,7 @@ public class CharacterController : MonoBehaviour
     #region Movement
     public void MovementBehaviour(Vector2 movementInput)
     {
+
         rb.velocity = movementInput * movementSpeed;
     }
     #endregion

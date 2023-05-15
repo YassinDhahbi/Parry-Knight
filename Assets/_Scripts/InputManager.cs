@@ -10,16 +10,20 @@ public class InputManager : MonoBehaviour
 
     #region Variables
     [SerializeField]
-    Vector2GameEvent movementEvent;
+    Vector2GameEvent OnMovementPerformed;
+    [SerializeField]
+    GameEvent openCloseInventory;
     [SerializeField]
     InputSystem inputSystem;
 
     InputAction movementInput;
+    InputAction tabPress;
     #endregion
 
     private void Awake()
     {
         movementInput = inputSystem.GetInputSchemeByID(ControlIdentifier.Movement);
+        tabPress = inputSystem.GetInputSchemeByID(ControlIdentifier.TabMenu);
     }
     #region Initialization
     private void OnEnable()
@@ -39,8 +43,12 @@ public class InputManager : MonoBehaviour
     void Subscription()
     {
         #region Movement
-        movementInput.performed += context => movementEvent.Raise(movementInput.ReadValue<Vector2>());
-        movementInput.canceled += context => movementEvent.Raise(Vector2.zero);
+        movementInput.performed += context => OnMovementPerformed.Raise(movementInput.ReadValue<Vector2>());
+        movementInput.canceled += context => OnMovementPerformed.Raise(Vector2.zero);
+        #endregion
+
+        #region Tab Press
+        tabPress.performed += context => openCloseInventory.Raise();
         #endregion
 
     }
@@ -48,10 +56,12 @@ public class InputManager : MonoBehaviour
     void Unsubscription()
     {
         #region Movement
-        movementInput.performed -= context => movementEvent.Raise(movementInput.ReadValue<Vector2>());
-        movementInput.canceled -= context => movementEvent.Raise(Vector2.zero);
+        movementInput.performed -= context => OnMovementPerformed.Raise(movementInput.ReadValue<Vector2>());
+        movementInput.canceled -= context => OnMovementPerformed.Raise(Vector2.zero);
         #endregion
-
+        #region Tab Press
+        tabPress.performed -= context => openCloseInventory.Raise();
+        #endregion
     }
     #endregion
 
