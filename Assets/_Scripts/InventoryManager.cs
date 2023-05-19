@@ -9,10 +9,11 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     InventorySpace inventorySpace;
 
-
-    public void Add(PickablePreset pickedPreset)
+    public void Add(GameObject pickedItem)
     {
-        inventorySpace.Add(pickedPreset, itemHolderInUI);
+        PickablePreset pickedPreset = pickedItem.GetComponent<Pickable>().GetPreset();
+        // inventorySpace.Add(pickedPreset, itemHolderInUI);
+        inventorySpace.AddItem(pickedPreset, itemHolderInUI);
     }
 
     public void OpenCloseInventory(GameObject inventory)

@@ -14,7 +14,6 @@ namespace ScriptableObjectArchitecture
         public void Raise(T value)
         {
             AddStackTrace(value);
-
             for (int i = _typedListeners.Count - 1; i >= 0; i--)
                 _typedListeners[i].OnEventRaised(value);
 
@@ -70,7 +69,7 @@ namespace ScriptableObjectArchitecture
         public void AddStackTrace(object value)
         {
 #if UNITY_EDITOR
-            if(SOArchitecturePreferences.IsDebugEnabled)
+            if (SOArchitecturePreferences.IsDebugEnabled)
                 _stackTraces.Insert(0, StackTraceEntry.Create(value));
 #endif
         }
@@ -110,5 +109,5 @@ namespace ScriptableObjectArchitecture
             _listeners.RemoveRange(0, _listeners.Count);
             _actions.RemoveRange(0, _actions.Count);
         }
-    } 
+    }
 }

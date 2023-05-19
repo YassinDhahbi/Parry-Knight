@@ -6,39 +6,58 @@ using TMPro;
 public class InventorySpace : ScriptableObject
 {
 
+
+    [SerializeField]
+    private UIItem inventoryItemPrefab;
+    List<UIItem> iventoryItemsList;
     [SerializeField]
     List<ItemSlot> itemSlotsList;
-    [SerializeField]
-    private GameObject itemUIPrefab;
-
-    public bool Add(PickablePreset itemId, Transform itemHolderInUI)
-    {
-
-
-        foreach (var item in itemSlotsList)
-        {
-            if (item.itemPreset == itemId)
-            {
-                item.UpdateCount();
-                return false;
-            }
-        }
-        GameObject spawnedUI = Instantiate(itemUIPrefab, itemHolderInUI);
-        itemId.AssignItemPresetInUI(spawnedUI.transform);
-        var counterTMP = spawnedUI.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        var newItem = new ItemSlot(itemId);
-        newItem.SetTMPCounter(counterTMP);
-        newItem.UpdateCount();
-        itemSlotsList.Add(newItem);
-
-
-        return true;
-
-    }
 
     public void Reset()
     {
         itemSlotsList.Clear();
+        iventoryItemsList.Clear();
+    }
+    public void AddItem(PickablePreset itemPreset, Transform itemHolderInUI)
+    {
+        if (CheckForItemDuplicate(itemPreset))
+        {
+            UIItem newInventoryItem = Instantiate(inventoryItemPrefab, itemHolderInUI);
+            newInventoryItem.SetPresetDetails(itemPreset);
+            iventoryItemsList.Add(newInventoryItem);
+        }
+    }
+
+    bool CheckForItemDuplicate(PickablePreset itemPreset)
+    {
+        var i = 0;
+        if (iventoryItemsList.Count > 0)
+        {
+            foreach (var item in iventoryItemsList)
+            {
+                i++;
+                if (item.preset == itemPreset)
+                {
+                    item.UpdateCount();
+                    FindItemSlot(itemPreset).SetCount(item.GetCount());
+                    return false;
+                }
+            }
+        }
+        itemSlotsList.Add(new ItemSlot(itemPreset, 1));
+        return true;
+    }
+
+    ItemSlot FindItemSlot(PickablePreset itemPreset)
+    {
+        foreach (var item in itemSlotsList)
+        {
+            if (item.GetPreset() == itemPreset)
+            {
+                return item;
+            }
+        }
+        return null;
     }
 }
 
@@ -46,30 +65,26 @@ public class InventorySpace : ScriptableObject
 [System.Serializable]
 public class ItemSlot
 {
-    public PickablePreset itemPreset;
+    [SerializeField]
+    PickablePreset itemPreset;
     [SerializeField]
     int count;
 
-    [SerializeField]
-    TextMeshProUGUI counterTMP;
-
-    #region Setter & Getters
-    public void UpdateCount()
+    public ItemSlot(PickablePreset preset, int counter)
     {
-        count++;
-        counterTMP.text = count.ToString();
+        itemPreset = preset;
+        count = counter;
     }
     public int GetCount()
     {
         return count;
     }
-    #endregion
-    public ItemSlot(PickablePreset item)
+    public void SetCount(int x)
     {
-        itemPreset = item;
+        count = x;
     }
-    public void SetTMPCounter(TextMeshProUGUI counter)
+    public PickablePreset GetPreset()
     {
-        counterTMP = counter;
+        return itemPreset;
     }
 }

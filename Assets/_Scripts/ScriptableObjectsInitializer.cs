@@ -8,9 +8,20 @@ public class ScriptableObjectsInitializer : MonoBehaviour
     HPManager hPManager;
     [SerializeField]
     InventorySpace inventorySpace;
-    private void Awake()
+    [SerializeField]
+    KeyInputManager keyInputManager;
+    private void Start()
     {
         hPManager.Initialize();
         inventorySpace.Reset();
+        EventManager.Instance.OnGameStart.Raise();
+    }
+    private void OnEnable()
+    {
+        keyInputManager.Subscription();
+    }
+    private void OnDisable()
+    {
+        keyInputManager.Unsubscription();
     }
 }

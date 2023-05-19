@@ -8,61 +8,33 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
 
-    #region Variables
-    [SerializeField]
-    Vector2GameEvent OnMovementPerformed;
-    [SerializeField]
-    GameEvent openCloseInventory;
-    [SerializeField]
-    InputSystem inputSystem;
-
-    InputAction movementInput;
-    InputAction tabPress;
-    #endregion
-
-    private void Awake()
-    {
-        movementInput = inputSystem.GetInputSchemeByID(ControlIdentifier.Movement);
-        tabPress = inputSystem.GetInputSchemeByID(ControlIdentifier.TabMenu);
-    }
-    #region Initialization
     private void OnEnable()
     {
         Subscription();
-        inputSystem.EnableAllControls(true);
+        Debug.Log("Here");
     }
     private void OnDisable()
     {
         Unsubscription();
-        inputSystem.EnableAllControls(false);
     }
-    #endregion
-
-    #region Player Movement Controls & Events
 
     void Subscription()
     {
-        #region Movement
-        movementInput.performed += context => OnMovementPerformed.Raise(movementInput.ReadValue<Vector2>());
-        movementInput.canceled += context => OnMovementPerformed.Raise(Vector2.zero);
-        #endregion
-
         #region Tab Press
-        tabPress.performed += context => openCloseInventory.Raise();
+        InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed += context =>
+        {
+            EventManager.Instance.OnInventoryOpenClose.Raise();
+        };
         #endregion
 
     }
 
     void Unsubscription()
     {
-        #region Movement
-        movementInput.performed -= context => OnMovementPerformed.Raise(movementInput.ReadValue<Vector2>());
-        movementInput.canceled -= context => OnMovementPerformed.Raise(Vector2.zero);
-        #endregion
         #region Tab Press
-        tabPress.performed -= context => openCloseInventory.Raise();
+        InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed -= context => { EventManager.Instance.OnInventoryOpenClose.Raise(); };
         #endregion
+
     }
-    #endregion
 
 }

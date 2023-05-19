@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "InputSystem", menuName = "InputSystem/ Control Scheme")]
-public class InputSystem : ScriptableObject
+public class InputSystem : ScriptableObjectSingleton<InputSystem>
 {
-    public List<InputScheme> inputList;
+    [SerializeField]
+    List<InputScheme> inputList;
     public InputAction GetInputSchemeByID(ControlIdentifier identifier)
     {
 
@@ -37,6 +38,15 @@ public class InputSystem : ScriptableObject
 
         }
     }
+
+    private void OnEnable()
+    {
+        Instance.EnableAllControls(true);
+    }
+    private void OnDisable()
+    {
+        Instance.EnableAllControls(false);
+    }
 }
 [System.Serializable]
 public class InputScheme
@@ -50,4 +60,7 @@ public enum ControlIdentifier
     Movement,
     TabMenu
 }
+
+
+
 

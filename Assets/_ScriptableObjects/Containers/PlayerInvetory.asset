@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSlotsList:
   - itemPreset: {fileID: 11400000, guid: 84d753092bfcae6489d71143bd034b6b, type: 2}
-    count: 1
+    count: 4
+  - itemPreset: {fileID: 11400000, guid: 4e1c0bc1c1c282a45ba9c8cd200af441, type: 2}
+    count: 4
   itemUIPrefab: {fileID: 844972101894547013, guid: 1fdce4c7c91717a47a7a6fd62f2aab77, type: 3}
+  inventoryItemPrefab: {fileID: 1651375431783781911, guid: 4e628b439d84bd4428d7dd2a3c20798c, type: 3}

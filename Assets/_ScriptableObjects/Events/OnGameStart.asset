@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d01ed13ecc74344b94395ea302e8696, type: 3}
-  m_Name: Flower
+  m_Script: {fileID: 11500000, guid: 7a78c7052899406438e9fc79486b45c0, type: 3}
+  m_Name: OnGameStart
   m_EditorClassIdentifier: 
-  itemName: Flower
-  itemSprite: {fileID: 21300000, guid: acbc82d33461a384bbb46142fc2aa069, type: 3}
-  description: This plant serves a healing herb

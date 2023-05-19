@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d01ed13ecc74344b94395ea302e8696, type: 3}
-  m_Name: Flower
+  m_Script: {fileID: 11500000, guid: 8a38e6d3e37065f4182b7a84745c32b9, type: 3}
+  m_Name: HPManager
   m_EditorClassIdentifier: 
-  itemName: Flower
-  itemSprite: {fileID: 21300000, guid: acbc82d33461a384bbb46142fc2aa069, type: 3}
-  description: This plant serves a healing herb
+  currentHp: {fileID: 11400000, guid: 095ef0ab55daf4d4a95a09056ccaa8bb, type: 2}
+  maxHp: {fileID: 11400000, guid: 8d8146123ed555c4993354af22dc9e09, type: 2}
+  initialHp: 100

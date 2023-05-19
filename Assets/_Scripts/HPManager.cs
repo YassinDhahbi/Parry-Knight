@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjectArchitecture;
 [CreateAssetMenu(menuName = "Managers/ HP Manager")]
-public class HPManager : ScriptableObject
+public class HPManager : ScriptableObjectSingleton<HPManager>
 {
     [SerializeField]
     FloatVariable currentHp;

@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class Pickable : Taggable
 {
-    public UnityEvent responseEvent;
     [SerializeField]
     PickablePreset itemPreset;
+
     private void Awake()
     {
         itemPreset.AssignItemPresetInGame(gameObject.transform);
@@ -16,11 +16,19 @@ public class Pickable : Taggable
     {
         if (taggingCondition.CheckForCompatibility(gameObject, other.gameObject))
         {
-            PickUpInteraction(other.gameObject);
-            responseEvent.Invoke();
+            PickUpInteraction();
         }
     }
 
 
-    public virtual void PickUpInteraction(GameObject other) { }
+    public void PickUpInteraction()
+    {
+        gameObject.SetActive(false);
+        EventManager.Instance.OnPlayerItemPickup.Raise(gameObject);
+    }
+
+    public PickablePreset GetPreset()
+    {
+        return itemPreset;
+    }
 }
