@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d01ed13ecc74344b94395ea302e8696, type: 3}
   m_Name: Orange
   m_EditorClassIdentifier: 
-  itemName: Orange
-  itemSprite: {fileID: 21300000, guid: 669a5a3c9f1fc6a42bde226d0c72942f, type: 3}
-  description: This organism is used as an ingredient to create healing potions
+  itemBaseDetails:
+    itemName: Orange
+    itemSprite: {fileID: 21300000, guid: 669a5a3c9f1fc6a42bde226d0c72942f, type: 3}
+    description: This is an orange

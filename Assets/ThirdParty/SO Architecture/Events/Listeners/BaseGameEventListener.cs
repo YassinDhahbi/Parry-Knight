@@ -30,7 +30,7 @@ where TResponse : UnityEvent<TType>
             RaiseResponse(value);
 
             CreateDebugEntry(_response);
-
+            // Debug.Log("Event " + name + " way raised");
             AddStackTrace(value);
         }
         private void RaiseResponse(TType value)
@@ -295,5 +295,5 @@ where TResponse : UnityEvent<TType>
             public string FunctionName;
         }
 #endif
-    } 
+    }
 }

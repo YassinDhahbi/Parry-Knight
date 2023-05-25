@@ -19,4 +19,6 @@ MonoBehaviour:
   OnOutOfTime: {fileID: 0}
   OnPlayerMove: {fileID: 11400000, guid: 985c35840d5a1064db9cee46dbe13b91, type: 2}
   OnPlayerItemPickup: {fileID: 11400000, guid: d97727aa847707e48b083a7d4dd86a38, type: 2}
+  OnItemSelectInInventory: {fileID: 11400000, guid: ee7c5f8acf9105949b63eb838f5fa4a4, type: 2}
+  OnItemSelectInCraftingMenu: {fileID: 11400000, guid: d801e319759dee34f81a87605ddbfb53, type: 2}
   OnInventoryOpenClose: {fileID: 11400000, guid: 36e53652266d48343bc010f21c23a426, type: 2}
