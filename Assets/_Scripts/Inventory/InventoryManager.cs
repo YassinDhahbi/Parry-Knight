@@ -54,10 +54,10 @@ public class InventoryManager : ScriptableObjectSingleton<InventoryManager>
         var itemPreset = pickedItem.GetComponent<Pickable>().GetPreset();
         var itemDetails = itemPreset.itemBaseDetails;
         Item newItem = new Item(itemDetails);
-        CheckForDuplicate(newItem);
+        CheckForDuplicates(newItem);
     }
 
-    void CheckForDuplicate(Item pickedItem)
+    public void CheckForDuplicates(Item pickedItem)
     {
         bool exists = false;
         Item equivalentItem = null;
@@ -132,7 +132,7 @@ public class InventoryManager : ScriptableObjectSingleton<InventoryManager>
         return 0;
     }
 
-    public void ReduceCountOfRecipe(ItemBaseDetails itemBaseDetails, int deductedCount)
+    public bool ReduceCountOfRecipe(ItemBaseDetails itemBaseDetails, int deductedCount)
     {
         foreach (var item in listOfHeldItems)
         {
@@ -141,10 +141,63 @@ public class InventoryManager : ScriptableObjectSingleton<InventoryManager>
                 if (item.GetCount() >= deductedCount)
                 {
                     item.ModifyCount(deductedCount);
-
+                    UpdateTextDetails(item);
+                    return true; // Exit the method once the count is deducted
                 }
+                else
+                {
+                    Debug.LogWarning("Not enough count to deduct for item: " + itemBaseDetails.itemName);
+                    return false; // Exit the method if there is not enough count
+                }
+
+            }
+
+        }
+        return false;
+    }
+
+
+    public bool CheckForResourcesCompatibility(ItemBaseDetails itemBaseDetails, int deductedCount)
+    {
+        bool checkResult = false;
+        foreach (var item in listOfHeldItems)
+        {
+            if (item.baseDetails == itemBaseDetails)
+            {
+                checkResult = item.GetCount() >= deductedCount;
             }
         }
+        return checkResult;
+    }
+
+    void UpdateTextDetails(Item targetItem)
+    {
+        for (int i = 0; i < listOfHeldItems.Count; i++)
+        {
+            if (listOfItemsInInventory[i].TryGetComponent(out InventoryUIItem inventoryUIItem) && inventoryUIItem.GetItemData().baseDetails == targetItem.baseDetails)
+            {
+                inventoryUIItem.SetItemDetails(targetItem);
+            }
+        }
+
+    }
+    public void RemoveItem(ItemBaseDetails itemBaseDetails)
+    {
+        foreach (var item in listOfHeldItems)
+        {
+            if (item.baseDetails == itemBaseDetails)
+            {
+                listOfHeldItems.Remove(item);
+
+            }
+        }
+    }
+
+
+    public void SpawnNewItem(ItemBaseDetails itemBaseDetails)
+    {
+        Item newItem = new Item(itemBaseDetails);
+        CheckForDuplicates(newItem);
     }
     #endregion
 }
@@ -179,6 +232,11 @@ public class Item
     public bool IsValid()
     {
         return baseDetails.itemName == string.Empty;
+    }
+
+    public void SetCount(int newValue)
+    {
+        count = newValue;
     }
     #endregion
 

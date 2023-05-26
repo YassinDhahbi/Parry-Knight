@@ -32,10 +32,29 @@ public class Recipe : ScriptableObject
     }
     public void Craft()
     {
+        bool craftable = true;
         foreach (var item in listOfIngredients)
         {
-            InventoryManager.Instance.ReduceCountOfRecipe(item.GetIngredient().itemBaseDetails, item.GetNeededAmount());
+            craftable &= InventoryManager.Instance.CheckForResourcesCompatibility(item.GetIngredient().itemBaseDetails, item.GetNeededAmount());
         }
+        if (craftable == true)
+        {
+            foreach (var item in listOfIngredients)
+            {
+                craftable &= InventoryManager.Instance.ReduceCountOfRecipe(item.GetIngredient().itemBaseDetails, item.GetNeededAmount());
+            }
+            Item newItem = new Item(baseData);
+            InventoryManager.Instance.CheckForDuplicates(newItem);
+        }
+        else
+        {
+            foreach (var item in listOfIngredients)
+            {
+                InventoryManager.Instance.CheckForResourcesCompatibility(item.GetIngredient().itemBaseDetails, item.GetNeededAmount());
+            }
+        }
+
+        Debug.Log("Craftable " + craftable);
     }
 }
 
