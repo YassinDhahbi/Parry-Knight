@@ -9,8 +9,7 @@ public class EventManager : ScriptableObjectSingleton<EventManager>
     //     Instance = Resources.FindObjectsOfTypeAll<EventManager>()[0];
     // }
 
-    public GameEvent OnProjectileDamage;
-    public GameEvent OnBulletPlayerCollision;
+    public FloatGameEvent OnProjectileDamageTaken;
 
     public GameEvent OnJump;
     public GameEvent OnGameStart;
@@ -19,6 +18,8 @@ public class EventManager : ScriptableObjectSingleton<EventManager>
     public GameObjectGameEvent OnPlayerItemPickup;
     public GameObjectGameEvent OnItemSelectInInventory;
     public GameObjectGameEvent OnItemSelectInCraftingMenu;
+    public GameEvent OnShieldBlock;
+    public GameEvent OnShieldRaise;
 
 
 

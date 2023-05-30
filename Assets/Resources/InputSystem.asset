@@ -81,3 +81,21 @@ MonoBehaviour:
         m_Action: Input
         m_Flags: 0
       m_Flags: 0
+  - id: 2
+    inputAction:
+      m_Name: Input
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 013291c0-e487-403b-a8e5-7858886c4b59
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: ef5313a9-d9b1-4954-9356-71d0d1c4ba61
+        m_Path: <Keyboard>/leftShift
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Input
+        m_Flags: 0
+      m_Flags: 0

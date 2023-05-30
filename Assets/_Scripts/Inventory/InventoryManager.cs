@@ -199,6 +199,10 @@ public class InventoryManager : ScriptableObjectSingleton<InventoryManager>
         Item newItem = new Item(itemBaseDetails);
         CheckForDuplicates(newItem);
     }
+
+
+
+
     #endregion
 }
 #region Extra Classes

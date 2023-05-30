@@ -10,8 +10,6 @@ public class Projectile : MonoBehaviour
     float dmg;
     [SerializeField]
     TaggingCondition playerProjectileCondition;
-    [SerializeField]
-    FloatGameEvent OnPlayerDamaged;
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -25,14 +23,25 @@ public class Projectile : MonoBehaviour
     {
         rb2D.AddForce(direction * shootingForce, ForceMode2D.Impulse);
     }
-
-
-
+    public float GetDamageValue()
+    {
+        return dmg;
+    }
+    private Vector3 GetDirectionToOwner()
+    {
+        return (owner.transform.position - transform.position).normalized;
+    }
+    public void ShootingInRelectionDirection(float shootingForce)
+    {
+        rb2D.velocity = Vector2.zero;
+        rb2D.AddForce(GetDirectionToOwner() * shootingForce, ForceMode2D.Impulse);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (playerProjectileCondition.CheckForCompatibility(gameObject, other.gameObject))
         {
-            OnPlayerDamaged.Raise(dmg);
+            EventManager.Instance.OnProjectileDamageTaken.Raise(dmg);
+            Debug.Log("Player Hit");
             gameObject.SetActive(false);
         }
         else

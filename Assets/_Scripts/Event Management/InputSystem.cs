@@ -58,7 +58,8 @@ public class InputScheme
 public enum ControlIdentifier
 {
     Movement,
-    TabMenu
+    TabMenu,
+    Shift
 }
 
 
