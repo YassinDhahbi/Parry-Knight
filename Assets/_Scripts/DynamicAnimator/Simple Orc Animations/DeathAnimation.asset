@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe791e79a242434b8186d0eae880002, type: 3}
+  m_Name: DeathAnimation
+  m_EditorClassIdentifier: 
+  currentPlayedSripteIndex: 0
+  repeatable: 0
+  listOfAnimationSprites:
+  - {fileID: -79897917, guid: 106f9f591dc0c07409397c371a208bde, type: 3}
+  - {fileID: -1018041243, guid: 106f9f591dc0c07409397c371a208bde, type: 3}
+  - {fileID: -497369896, guid: 106f9f591dc0c07409397c371a208bde, type: 3}
+  - {fileID: -2024969043, guid: 106f9f591dc0c07409397c371a208bde, type: 3}
+  - {fileID: -59246127, guid: 106f9f591dc0c07409397c371a208bde, type: 3}
+  - {fileID: 42256439, guid: 106f9f591dc0c07409397c371a208bde, type: 3}

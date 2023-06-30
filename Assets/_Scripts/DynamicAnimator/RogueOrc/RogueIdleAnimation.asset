@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe791e79a242434b8186d0eae880002, type: 3}
+  m_Name: RogueIdleAnimation
+  m_EditorClassIdentifier: 
+  currentPlayedSripteIndex: 4
+  repeatable: 1
+  listOfAnimationSprites:
+  - {fileID: -564457076, guid: 53581c6e0cf1a23458a4a76f62bc644b, type: 3}
+  - {fileID: -758308636, guid: 53581c6e0cf1a23458a4a76f62bc644b, type: 3}
+  - {fileID: 1084530800, guid: 53581c6e0cf1a23458a4a76f62bc644b, type: 3}
+  - {fileID: 2016032909, guid: 53581c6e0cf1a23458a4a76f62bc644b, type: 3}

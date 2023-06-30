@@ -4,37 +4,35 @@ using UnityEngine;
 using ScriptableObjectArchitecture;
 using UnityEngine.InputSystem;
 
-
 public class InputManager : MonoBehaviour
 {
-
     private void OnEnable()
     {
         Subscription();
         Debug.Log("Here");
     }
+
     private void OnDisable()
     {
         Unsubscription();
     }
 
-    void Subscription()
+    private void Subscription()
     {
-        #region Tab Press
-        InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed += context =>
-        {
-            EventManager.Instance.OnInventoryOpenClose.Raise();
-        };
-        #endregion
+        //#region Tab Press
 
+        //InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed += context =>
+        //{
+        //    EventManager.Instance.OnInventoryOpenClose.Raise();
+        //};
+
+        //#endregion Tab Press
     }
 
-    void Unsubscription()
+    private void Unsubscription()
     {
-        #region Tab Press
-        InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed -= context => { EventManager.Instance.OnInventoryOpenClose.Raise(); };
-        #endregion
-
+        //#region Tab Press
+        //InputSystem.Instance.GetInputSchemeByID(ControlIdentifier.TabMenu).performed -= context => { EventManager.Instance.OnInventoryOpenClose.Raise(); };
+        //#endregion
     }
-
 }

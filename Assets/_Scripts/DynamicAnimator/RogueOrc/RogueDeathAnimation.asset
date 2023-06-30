@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe791e79a242434b8186d0eae880002, type: 3}
+  m_Name: RogueDeathAnimation
+  m_EditorClassIdentifier: 
+  repeatable: 0
+  listOfAnimationSprites:
+  - {fileID: -1163645657, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}
+  - {fileID: 121552953, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}
+  - {fileID: 1797537999, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}
+  - {fileID: 623512988, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}
+  - {fileID: 197911556, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}
+  - {fileID: 612254496, guid: feee2fa1a1e0bfb4996b82f51532946c, type: 3}

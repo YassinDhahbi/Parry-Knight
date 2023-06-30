@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eeb29ba6e8fe0e4a820098041cae314, type: 3}
   m_Name: EventManager
   m_EditorClassIdentifier: 
-  OnProjectileDamageTaken: {fileID: 11400000, guid: 6495b87c7e1c30a46883407db1eda810, type: 2}
-  OnJump: {fileID: 0}
   OnGameStart: {fileID: 11400000, guid: e43166e74296dfe4788d88a0ff567e26, type: 2}
-  OnOutOfTime: {fileID: 0}
-  OnPlayerMove: {fileID: 11400000, guid: 985c35840d5a1064db9cee46dbe13b91, type: 2}
-  OnPlayerItemPickup: {fileID: 11400000, guid: d97727aa847707e48b083a7d4dd86a38, type: 2}
-  OnItemSelectInInventory: {fileID: 11400000, guid: ee7c5f8acf9105949b63eb838f5fa4a4, type: 2}
-  OnItemSelectInCraftingMenu: {fileID: 11400000, guid: d801e319759dee34f81a87605ddbfb53, type: 2}
   OnShieldBlock: {fileID: 11400000, guid: b8a91fc8ea81e3745a0a071047e77d66, type: 2}
   OnShieldRaise: {fileID: 11400000, guid: c919e8c159645ac4692023d3463859f6, type: 2}
-  OnInventoryOpenClose: {fileID: 11400000, guid: 36e53652266d48343bc010f21c23a426, type: 2}
+  OnPlayerDeath: {fileID: 11400000, guid: 36e53652266d48343bc010f21c23a426, type: 2}
+  OnPerfectBlock: {fileID: 11400000, guid: 906d2d9bf5a03514fb2cf1c24cacef6c, type: 2}
+  OnPlayerLevelUP: {fileID: 11400000, guid: a33e788ba0cf67941a580e0bb52975ae, type: 2}
+  OnGameLost: {fileID: 11400000, guid: f1cea4675ed3e074983d045b6e1bed42, type: 2}
+  OnGameWon: {fileID: 11400000, guid: a59b7cab38c719a4d9f48076e05da5b1, type: 2}
+  OnSfxPlay: {fileID: 11400000, guid: bc2c784dd9a724b43bdcc99dd3151a35, type: 2}
+  OnBlockingExpCollected: {fileID: 11400000, guid: d045cf0731d296e49a1a4c5e1e39c9e6, type: 2}
+  OnProjectileDamageTaken: {fileID: 11400000, guid: 6495b87c7e1c30a46883407db1eda810, type: 2}
+  OnPlayerItemPickup: {fileID: 11400000, guid: d97727aa847707e48b083a7d4dd86a38, type: 2}

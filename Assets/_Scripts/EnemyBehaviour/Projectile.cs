@@ -1,55 +1,122 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tagging;
-using ScriptableObjectArchitecture;
-public class Projectile : MonoBehaviour
+
+public class Projectile : Taggable
 {
-    Rigidbody2D rb2D;
-    RangedEnemy owner;
-    float dmg;
+    public float dmg;
+    public bool reflected;
+
+    public bool stuck;
+    public TrailRenderer trailRenderer;
+
+    public ProjectilePreset preset;
+
     [SerializeField]
-    TaggingCondition playerProjectileCondition;
+    private List<Color> listOftrailColors;
+
+    private Rigidbody2D rb2D;
+    private SpriteRenderer spriteRenderer;
+    private Vector2 prePauseVelocity;
+
     private void Awake()
     {
+    }
+
+    private void FixedUpdate()
+    {
+        if (reflected && !stuck)
+        {
+            spriteRenderer.transform.Rotate(Vector3.forward * Time.deltaTime * 360f);
+        }
+        if (GameManager.Instance.gameIsPaused)
+        {
+            rb2D.velocity = Vector3.zero;
+        }
+        if (!GameManager.Instance.gameIsPaused && !stuck)
+        {
+            rb2D.velocity = prePauseVelocity;
+        }
+    }
+
+    public void AssignData()
+    {
         rb2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
+        spriteRenderer.sprite = preset.projectileSprite;
+        dmg = preset.damage;
+        stuck = false;
+        reflected = false;
+        trailRenderer.startColor = Color.red;
+        GetComponent<Collider2D>().enabled = true;
     }
-    public void SetOwner(RangedEnemy parent)
+
+    public void Shoot(Vector2 direction)
     {
-        owner = parent;
-        dmg = owner.GetDamage();
+        rb2D.AddForce(direction * preset.shootingForce, ForceMode2D.Impulse);
+        prePauseVelocity = direction * preset.shootingForce;
     }
-    public void Shoot(Vector2 direction, float shootingForce)
-    {
-        rb2D.AddForce(direction * shootingForce, ForceMode2D.Impulse);
-    }
+
     public float GetDamageValue()
     {
         return dmg;
     }
-    private Vector3 GetDirectionToOwner()
+
+    private IEnumerator DisableAfterAWhile(float nSeconds)
     {
-        return (owner.transform.position - transform.position).normalized;
+        yield return new WaitForSeconds(nSeconds);
+        gameObject.SetActive(false);
     }
-    public void ShootingInRelectionDirection(float shootingForce)
-    {
-        rb2D.velocity = Vector2.zero;
-        rb2D.AddForce(GetDirectionToOwner() * shootingForce, ForceMode2D.Impulse);
-    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (playerProjectileCondition.CheckForCompatibility(gameObject, other.gameObject))
+        if (other.gameObject.layer == 9)
         {
-            EventManager.Instance.OnProjectileDamageTaken.Raise(dmg);
-            Debug.Log("Player Hit");
-            gameObject.SetActive(false);
+            rb2D.velocity = Vector2.zero;
+            trailRenderer.enabled = false;
+            rb2D.angularVelocity = 0;
+            transform.GetComponent<Collider2D>().enabled = false;
+            HitEffectManager.instance.SpawnHit(transform.position);
+            stuck = true;
+            StartCoroutine(DisableAfterAWhile(5));
+        }
+
+        if (taggingCondition.CheckForCompatibility(gameObject, other.gameObject))
+        {
+            if (reflected == false)
+            {
+                EventManager.Instance.OnProjectileDamageTaken.Raise(dmg);
+                HitEffectManager.instance.DistributeBlood(transform.position, other.transform);
+                HitEffectManager.instance.SpawnDamageNumber(transform.position, (int)dmg);
+                gameObject.SetActive(false);
+            }
         }
         else
         {
-            if (other.TryGetComponent(out IDamagable damagable))
+            if (other.TryGetComponent(out Damageable damagable) && reflected == true)
             {
-                // hurt the target
+                HitEffectManager.instance.DistributeBlood(transform.position, other.transform);
+                damagable.Damage(dmg);
+                HitEffectManager.instance.SpawnDamageNumber(transform.position, (int)dmg);
+                gameObject.SetActive(false);
             }
         }
+    }
+
+    public void UpdateTrailEffect()
+    {
+        for (int i = 0; i < listOftrailColors.Count; i++)
+        {
+            if (dmg > i * 10)
+            {
+                trailRenderer.startColor = listOftrailColors[i];
+            }
+        }
+    }
+
+    public void PushInDirection(Vector2 direction, float reflectionForce)
+    {
+        prePauseVelocity = direction * reflectionForce;
     }
 }

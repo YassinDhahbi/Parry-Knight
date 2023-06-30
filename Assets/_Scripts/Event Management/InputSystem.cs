@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 public class InputSystem : ScriptableObjectSingleton<InputSystem>
 {
     [SerializeField]
-    List<InputScheme> inputList;
+    private List<InputScheme> inputList;
+
     public InputAction GetInputSchemeByID(ControlIdentifier identifier)
     {
-
         foreach (var item in inputList)
         {
             if (item.id == identifier)
@@ -28,14 +28,12 @@ public class InputSystem : ScriptableObjectSingleton<InputSystem>
         {
             if (state == true)
             {
-
                 item.inputAction.Enable();
             }
             else
             {
                 item.inputAction.Disable();
             }
-
         }
     }
 
@@ -43,11 +41,13 @@ public class InputSystem : ScriptableObjectSingleton<InputSystem>
     {
         Instance.EnableAllControls(true);
     }
+
     private void OnDisable()
     {
         Instance.EnableAllControls(false);
     }
 }
+
 [System.Serializable]
 public class InputScheme
 {
@@ -59,9 +59,8 @@ public enum ControlIdentifier
 {
     Movement,
     TabMenu,
-    Shift
+    Shift,
+    MousePosition,
+    MouseClick,
+    Escape
 }
-
-
-
-

@@ -1,24 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BlockingScript : Taggable
 {
     #region Variables
-    [SerializeField]
-    float perfectBlockTiming;
-    [SerializeField]
-    float damageResistancePercentage;
-    [SerializeField]
-    float relectingForce;
-    [SerializeField]
-    float timer;
-    bool timerIsActive;
-    #endregion
 
+    [SerializeField]
+    private float perfectBlockTiming;
 
+    [SerializeField]
+    private float damageResistancePercentage;
+
+    [SerializeField]
+    private float relectingForce;
+
+    [SerializeField]
+    private float timer;
+
+    [SerializeField]
+    private Transform reflectionIndicator;
+
+    [SerializeField]
+    private float offSet;
+
+    [SerializeField]
+    private float reflectionForce;
+
+    [SerializeField]
+    private float movementMultiplierWhenShieldIsActive;
+
+    [SerializeField]
+    private Gradient projectileColorOnReflect;
+
+    private bool timerIsActive;
+    private Camera cam;
+    private PlayerMovement playerMovementScript;
+
+    #endregion Variables
 
     #region Monobehaviour
+
+    private void Awake()
+    {
+        cam = Camera.main;
+        playerMovementScript = GetComponentInParent<PlayerMovement>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (taggingCondition.CheckForCompatibility(gameObject, other.gameObject))
@@ -29,49 +55,100 @@ public class BlockingScript : Taggable
 
     private void Update()
     {
-        TimerManager();
+        if (GameManager.Instance.gameIsPaused == false)
+        {
+            TimerManager();
+            ManageReflectorDirection();
+        }
     }
-    #endregion
 
+    #endregion Monobehaviour
 
+    #region Methods
 
-    void ReflectProjectile(Collider2D other)
+    private void ReflectProjectile(Collider2D other)
     {
         if (other.TryGetComponent(out Projectile projectile))
         {
             if (timer < perfectBlockTiming)
             {
-                projectile.ShootingInRelectionDirection(relectingForce);
-                Debug.Log("Perfect block");
-                return;
+                EventManager.Instance.OnPerfectBlock.Raise();
+                projectile.reflected = true;
+                var direction = FindMousePos() - reflectionIndicator.position;
+                //projectile.Shoot(direction.normalized);
+                projectile.PushInDirection(direction.normalized, reflectionForce);
+                projectile.trailRenderer.colorGradient = projectileColorOnReflect;
+                projectile.dmg += reflectionForce;
+                projectile.UpdateTrailEffect();
+                EventManager.Instance.OnBlockingExpCollected.Raise((int)projectile.dmg);
             }
-            EventManager.Instance.OnProjectileDamageTaken.Raise(projectile.GetDamageValue() - damageResistancePercentage);
-            Debug.Log("Shield Hit");
-            Destroy(other.gameObject);
-
-
+            else
+            {
+                EventManager.Instance.OnProjectileDamageTaken.Raise(projectile.GetDamageValue() - damageResistancePercentage);
+            }
         }
-
     }
+
+    private void ManageReflectorDirection()
+    {
+        reflectionIndicator.gameObject.SetActive(timer < perfectBlockTiming && gameObject.activeInHierarchy);
+        RotateIndicator();
+    }
+
+    private void RotateIndicator()
+    {
+        var direction = FindMousePos() - reflectionIndicator.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        reflectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle + offSet);
+    }
+
+    private Vector3 FindMousePos()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 worldPos = cam.ScreenToWorldPoint(mousePosition);
+        worldPos.z = 0f;
+        return worldPos;
+    }
+
     public void ShowShield()
     {
         gameObject.SetActive(!gameObject.activeInHierarchy);
+        reflectionIndicator.gameObject.SetActive(gameObject.activeInHierarchy);
         timerIsActive = gameObject.activeInHierarchy;
+        ShieldSlowDownEffect();
         if (timerIsActive == false)
         {
             timer = 0;
         }
     }
 
+    public void ShieldSlowDownEffect()
+    {
+        var currentMovementPenalty = 1f;
 
-    void TimerManager()
+        if (gameObject.activeInHierarchy)
+        {
+            currentMovementPenalty = movementMultiplierWhenShieldIsActive;
+        }
+        else
+        {
+            currentMovementPenalty = 1f;
+        }
+        playerMovementScript.MovementPenalty(currentMovementPenalty);
+    }
+
+    private void TimerManager()
     {
         if (timerIsActive == true)
         {
             timer += Time.deltaTime;
         }
+    }
 
+    public void UpdateBlockTiming(float t)
+    {
+        perfectBlockTiming += t;
     }
 }
 
-
+#endregion Methods

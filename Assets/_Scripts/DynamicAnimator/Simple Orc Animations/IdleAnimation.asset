@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe791e79a242434b8186d0eae880002, type: 3}
+  m_Name: IdleAnimation
+  m_EditorClassIdentifier: 
+  currentPlayedSripteIndex: 4
+  repeatable: 1
+  listOfAnimationSprites:
+  - {fileID: 1311020347, guid: 43c704108d4ffe348b9a47aada4d61b6, type: 3}
+  - {fileID: -1138115079, guid: 43c704108d4ffe348b9a47aada4d61b6, type: 3}
+  - {fileID: -1457082661, guid: 43c704108d4ffe348b9a47aada4d61b6, type: 3}
+  - {fileID: -1845522554, guid: 43c704108d4ffe348b9a47aada4d61b6, type: 3}
