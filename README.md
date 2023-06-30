@@ -126,6 +126,11 @@ I tried to use some pooling in order to reduce the number of projectiles and I u
 
 ![image](https://github.com/YassinDhahbi/Parry-Knight/assets/90442257/24f51ed3-cb5b-45ed-88b2-169d169f7e0e)
 
+I also used the same approach to the particles and damage numbers that show up on impact : 
+
+![image](https://github.com/YassinDhahbi/Parry-Knight/assets/90442257/4b16a670-ba6e-4802-8a47-ce380e21130e)
+
+
 ### Leveling 
 
 
@@ -137,6 +142,29 @@ The leveling manager is also linked to the panel in which the upgrade cards show
 
 
 
+### Animating
+When working with the usual animator and prefab workflow, I found it very tedious to just have many enemies with many animators and prefabs so I decided to dynamically assign animations using a system that I created.
+It's not perfect. But here is how it works:
+
+![image](https://github.com/YassinDhahbi/Parry-Knight/assets/90442257/ff743e1f-066a-4713-b3c2-614c38d0118a)
+
+This component holds references to scriptable objects that hold many of the frames that constitute an animation.
+
+![image](https://github.com/YassinDhahbi/Parry-Knight/assets/90442257/8e6ff5c5-10d1-47b4-bf05-265628bd1f68)
+
+I only need one animator assigned to the enemy character.
+
+![image](https://github.com/YassinDhahbi/Parry-Knight/assets/90442257/6fc1549d-77a8-4fdc-9239-3855e78a0c7f)
+
+During each animation, I spread the events based on how the frames are laid out. Then each event is called and it assigns the frame selected from the current animation data provided by the currently selected animation scriptable object
+
+## Conclusion 
+
+* Working on this game was quite a nice change of pace from the harder 3D workflow that I use on most of the weekdays.
+
+* I loved working on 2D since I rarely get the chance to do so. I liked the fact that I was able to make some pixel art that was useful for the UI. 
+
+* I can't stress enough the fact that a game developer should spend some time playing games and making them. Because if it weren't for that combination I wouldn't have found the idea for this game.
 
 
 
