@@ -115,6 +115,8 @@ The focus of this event system is the ability to increase modularity and depende
 
 
 ### Audio
+Many of the sounds that I used in the game, were taken from the OpenGameArt website which has many nice and free to use assets:
+- https://opengameart.org/
 
 I decided to not have an audio manager and instead use a script that controls the walking sfx for the player. Then call other sound effects using the event manager I mentioned before.
 
